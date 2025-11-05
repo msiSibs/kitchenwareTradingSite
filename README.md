@@ -52,11 +52,11 @@ python3 manage.py runserver
 
 ## 📖 Documentation
 
-- **[GETTING_STARTED.md](GETTING_STARTED.md)** - Complete setup guide
-- **[docs/PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md)** - Project scope and roadmap
-- **[docs/README_DOCS.md](docs/README_DOCS.md)** - Documentation index
-- **[POSTGRES_SETUP.md](POSTGRES_SETUP.md)** - Database setup
-- **[SUPERUSER_GUIDE.md](SUPERUSER_GUIDE.md)** - Admin guide
+- **[docs/GETTING_STARTED.md](docs/GETTING_STARTED.md)** - Complete setup guide (automated & manual)
+- **[docs/PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md)** - Project description and technical stack
+- **[docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)** - Directory layout and app organization
+- **[docs/DEVELOPMENT_PLAN.md](docs/DEVELOPMENT_PLAN.md)** - Phase-by-phase implementation roadmap
+- **[docs/PROJECT_FILES_EXPLANATION.md](docs/PROJECT_FILES_EXPLANATION.md)** - File-by-file reference guide
 
 ## 🤝 Contributing
 
@@ -80,7 +80,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙋‍♂️ Support
 
 - **Issues**: Report bugs and request features on GitHub
-- **Discussions**: Join community discussions
 - **Documentation**: Check the `docs/` folder for detailed guides
 
 ---
