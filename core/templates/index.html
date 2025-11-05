@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kitchenware Marketplace - Home{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <div class="bg-light py-5 mb-5 rounded">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-3">Welcome to Kitchenware Marketplace</h1>
+                <p class="lead mb-4">
+                    Buy and sell quality second-hand kitchenware items. Connect with buyers and sellers 
+                    in your community and find great deals on kitchen essentials.
+                </p>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'users:register' %}" class="btn btn-primary btn-lg me-2">Get Started</a>
+                    <a href="{% url 'marketplace:list' %}" class="btn btn-outline-primary btn-lg">Browse Items</a>
+                {% else %}
+                    <a href="{% url 'marketplace:list' %}" class="btn btn-primary btn-lg me-2">Browse Items</a>
+                    <a href="{% url 'marketplace:create' %}" class="btn btn-outline-primary btn-lg">Sell Item</a>
+                {% endif %}
+            </div>
+            <div class="col-lg-6 text-center">
+                <div style="font-size: 100px;">🍽️</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Features Section -->
+    <div class="row mb-5">
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-3">🛡️ Safe Trading</h5>
+                    <p class="card-text">
+                        Secure transactions with buyer and seller protection. Leave reviews and ratings 
+                        to build trust in the community.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-3">💬 Direct Messaging</h5>
+                    <p class="card-text">
+                        Communicate directly with buyers and sellers. Negotiate prices and discuss 
+                        item details through our messaging system.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-3">🔍 Easy Search</h5>
+                    <p class="card-text">
+                        Find exactly what you're looking for with advanced filters by category, 
+                        condition, price, and location.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="bg-primary text-white py-5 px-4 rounded text-center">
+        <h2 class="mb-3">Ready to start trading?</h2>
+        <p class="mb-4">Join thousands of users buying and selling kitchenware items today.</p>
+        {% if user.is_authenticated %}
+            <a href="{% url 'marketplace:list' %}" class="btn btn-light btn-lg">Start Browsing</a>
+        {% else %}
+            <a href="{% url 'users:register' %}" class="btn btn-light btn-lg">Sign Up Now</a>
+        {% endif %}
+    </div>
+{% endblock %}
