@@ -42,7 +42,7 @@ A Django-based platform for buying and selling second-hand kitchenware items. Co
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/kitchenwareTradingSite.git
+git clone https://github.com/msiSibs/kitchenwareTradingSite.git
 cd kitchenwareTradingSite
 
 # Run the setup script
