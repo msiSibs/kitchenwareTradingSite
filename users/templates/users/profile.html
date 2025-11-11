@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ profile.get_display_name }} - Kitchenware Marketplace{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    {% else %}
+                        <div class="bg-light rounded-circle mx-auto mb-3" style="width: 150px; height: 150px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-user" style="font-size: 60px; color: #ccc;"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <h3>{{ profile.get_display_name }}</h3>
+                    <p class="text-muted">@{{ profile.user.username }}</p>
+
+                    <div class="mb-3">
+                        <small class="text-muted d-block">Member since {{ profile.created_at|date:"M Y" }}</small>
+                    </div>
+
+                    {% if profile.phone_number %}
+                        <p class="mb-2">
+                            <strong>Phone:</strong><br>
+                            {{ profile.phone_number }}
+                        </p>
+                    {% endif %}
+
+                    {% if is_profile_owner %}
+                        <a href="{% url 'users:edit_profile' %}" class="btn btn-primary btn-sm w-100">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>About</h4>
+                </div>
+                <div class="card-body">
+                    {% if profile.bio %}
+                        <p>{{ profile.bio }}</p>
+                    {% else %}
+                        <p class="text-muted">No bio added yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

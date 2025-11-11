@@ -16,8 +16,16 @@ A Django-based platform for buying and selling second-hand kitchenware items. Co
 - **Environment Configuration**: Secure settings management
 - **Documentation**: Comprehensive setup and development guides
 
-### 🚧 In Development (Phase 2)
-- **User Authentication**: Registration, login, profiles, seller accounts
+### ✅ Completed (Phase 2)
+- **User Authentication**: Registration, login, logout with messages
+- **User Profiles**: Profile creation, viewing, editing with full name, bio, phone
+- **Seller Accounts**: Seller status, verification, ratings, sales tracking
+- **Profile Management**: Edit profile, update picture, phone number, bio
+- **Seller Directory**: Browse verified sellers, seller ratings
+- **Form Validation**: Email/username uniqueness, phone format, image size
+- **Permission System**: Login required, user can only edit own profile
+
+### 🚧 In Development (Phase 3)
 - **Marketplace CRUD**: Item listings with image upload
 - **Search & Filtering**: Advanced item discovery
 - **Messaging System**: Direct buyer-seller communication
@@ -57,6 +65,7 @@ python3 manage.py runserver
 - **[docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)** - Directory layout and app organization
 - **[docs/DEVELOPMENT_PLAN.md](docs/DEVELOPMENT_PLAN.md)** - Phase-by-phase implementation roadmap
 - **[docs/PROJECT_FILES_EXPLANATION.md](docs/PROJECT_FILES_EXPLANATION.md)** - File-by-file reference guide
+- **[docs/TESTS.md](docs/TESTS.md)** - Test suite documentation (36 passing tests)
 
 ## 🤝 Contributing
 
