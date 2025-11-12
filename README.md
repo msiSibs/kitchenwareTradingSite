@@ -2,6 +2,10 @@
 
 A Django-based platform for buying and selling second-hand kitchenware items. Connect buyers and sellers in a trusted marketplace with user authentication, item listings, messaging, and transaction management.
 
+## 📸 Site Preview
+
+![Kitchenware Marketplace Site Preview](docs/kitchenwareImg.png)
+
 ![Django](https://img.shields.io/badge/Django-4.2.7-green.svg)
 ![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13+-blue.svg)
