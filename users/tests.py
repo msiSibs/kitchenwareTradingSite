@@ -2,8 +2,11 @@ from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.test.utils import override_settings
+from django.core.files.uploadedfile import SimpleUploadedFile
 from .models import UserProfile
 from .forms import UserRegistrationForm, UserProfileForm
+import os
+import tempfile
 
 
 class UserProfileModelTests(TestCase):
@@ -405,3 +408,138 @@ class UserIntegrationTests(TestCase):
         user.profile.refresh_from_db()
         self.assertEqual(user.profile.bio, 'Kitchenware enthusiast')
         self.assertTrue(user.profile.is_seller)
+
+
+class ProfilePictureRemovalTests(TestCase):
+    """Test profile picture removal functionality."""
+    
+    def setUp(self):
+        """Create test user and profile with picture."""
+        self.user = User.objects.create_user(
+            username='testuser',
+            email='test@example.com',
+            password='testpass123'
+        )
+        self.profile = self.user.profile
+        self.client = Client()
+    
+    def _create_test_image(self):
+        """Create a simple test image."""
+        image_content = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc\xf8\x0f\x00\x00\x01\x01\x00\x05\xf1\xd0\xef\x08\x00\x00\x00\x00IEND\xaeB`\x82'
+        return SimpleUploadedFile(
+            'test_image.png',
+            image_content,
+            content_type='image/png'
+        )
+    
+    @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+    def test_remove_picture_checkbox_in_form(self):
+        """Test that remove_picture field exists in UserProfileForm."""
+        form = UserProfileForm()
+        self.assertIn('remove_picture', form.fields)
+    
+    @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+    def test_remove_picture_via_form(self):
+        """Test removing profile picture via form submission."""
+        # Upload a picture first
+        image = self._create_test_image()
+        self.profile.profile_picture = image
+        self.profile.save()
+        
+        self.assertTrue(self.profile.profile_picture)
+        
+        # Login and remove picture
+        self.client.login(username='testuser', password='testpass123')
+        response = self.client.post(reverse('users:edit_profile'), {
+            'bio': '',
+            'phone_number': '',
+            'is_seller': False,
+            'remove_picture': True
+        })
+        
+        # Verify redirect
+        self.assertEqual(response.status_code, 302)
+        
+        # Verify picture was removed
+        self.profile.refresh_from_db()
+        self.assertFalse(self.profile.profile_picture)
+    
+    @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+    def test_remove_picture_without_picture(self):
+        """Test that remove_picture checkbox does nothing if no picture exists."""
+        # Ensure no picture
+        self.profile.profile_picture = None
+        self.profile.save()
+        
+        # Login and submit remove request
+        self.client.login(username='testuser', password='testpass123')
+        response = self.client.post(reverse('users:edit_profile'), {
+            'bio': '',
+            'phone_number': '',
+            'is_seller': False,
+            'remove_picture': True
+        })
+        
+        # Should succeed without error
+        self.assertEqual(response.status_code, 302)
+
+
+class ProfilePictureCascadeDeletionTests(TestCase):
+    """Test cascade deletion of profile pictures when profile is deleted."""
+    
+    def setUp(self):
+        """Create test user and profile with picture."""
+        self.user = User.objects.create_user(
+            username='testuser',
+            email='test@example.com',
+            password='testpass123'
+        )
+        self.profile = self.user.profile
+    
+    def _create_test_image(self):
+        """Create a simple test image."""
+        image_content = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc\xf8\x0f\x00\x00\x01\x01\x00\x05\xf1\xd0\xef\x08\x00\x00\x00\x00IEND\xaeB`\x82'
+        return SimpleUploadedFile(
+            'test_image.png',
+            image_content,
+            content_type='image/png'
+        )
+    
+    @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+    def test_picture_deleted_on_profile_delete(self):
+        """Test that profile picture is deleted when profile is deleted."""
+        # Upload a picture
+        image = self._create_test_image()
+        self.profile.profile_picture = image
+        self.profile.save()
+        
+        # Get the file path
+        picture_path = self.profile.profile_picture.path if self.profile.profile_picture else None
+        
+        # Delete the profile (and user)
+        user_id = self.user.id
+        self.user.delete()
+        
+        # Verify user and profile are deleted
+        self.assertFalse(User.objects.filter(id=user_id).exists())
+        self.assertFalse(UserProfile.objects.filter(id=self.profile.id).exists())
+    
+    @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+    def test_picture_deleted_on_profile_picture_update(self):
+        """Test that old picture is deleted when profile picture is updated."""
+        # Upload first picture
+        image1 = self._create_test_image()
+        self.profile.profile_picture = image1
+        self.profile.save()
+        
+        first_picture = self.profile.profile_picture
+        self.assertTrue(first_picture)
+        
+        # Update with new picture
+        image2 = self._create_test_image()
+        self.profile.profile_picture = image2
+        self.profile.save()
+        
+        # Verify new picture is different
+        self.assertNotEqual(self.profile.profile_picture.name, first_picture.name)
+

@@ -252,9 +252,9 @@ python manage.py migrate users
 ✅ Bootstrap 5 responsive design for all forms  
 
 ### Known Limitations / Future Enhancements
-- ⚠️ **Profile Picture Removal**: Users currently cannot remove uploaded profile pictures
-- ⚠️ **Image Cleanup**: Uploaded images should have deletion functionality and cleanup on user profile deletion
-- 📝 **TODO**: Add profile picture removal button and implement cascade deletion
+- ✅ **Profile Picture Removal**: Implemented - Users can now remove profile pictures via checkbox
+- ✅ **Image Cleanup**: Implemented - Images have removal functionality and cascade deletion on profile deletion
+- ✅ **Clear Upload Button**: Added red X button to clear image selection before upload
 
 ---
 

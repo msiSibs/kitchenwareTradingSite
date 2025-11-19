@@ -133,6 +133,15 @@ class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     
     def form_valid(self, form):
         """Handle successful form submission."""
+        # Check if user wants to remove profile picture
+        if form.cleaned_data.get('remove_picture') and self.object.profile_picture:
+            # Delete the image file from storage
+            self.object.profile_picture.delete(save=False)
+            # Clear the profile_picture field
+            self.object.profile_picture = None
+            self.object.save()
+            messages.info(self.request, "Profile picture removed successfully!")
+        
         response = super().form_valid(form)
         messages.success(self.request, "Profile updated successfully!")
         return response

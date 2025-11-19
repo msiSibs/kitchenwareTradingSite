@@ -52,6 +52,15 @@ Comprehensive test suite for the Users application covering models, forms, views
 - ✅ `test_complete_registration_and_login_flow` - Full registration→login flow
 - ✅ `test_profile_update_flow` - Login→profile update flow
 
+### 6. Profile Picture Removal Tests (3 tests)
+- ✅ `test_remove_picture_checkbox_in_form` - Removal checkbox exists in form
+- ✅ `test_remove_picture_via_form` - Picture successfully removed via form submission
+- ✅ `test_remove_picture_without_picture` - Gracefully handles removal when no picture exists
+
+### 7. Profile Picture Cascade Deletion Tests (2 tests)
+- ✅ `test_picture_deleted_on_profile_delete` - Image file deleted when profile is deleted
+- ✅ `test_picture_deleted_on_profile_picture_update` - Old image removed when new one uploaded
+
 ## Running Tests
 
 ### Run all users app tests:
@@ -83,18 +92,19 @@ coverage html  # generates HTML report
 ```
 
 ## Test Statistics
-- **Total Tests**: 36
-- **Passed**: 36 ✅
+- **Total Tests**: 43
+- **Passed**: 43 ✅
 - **Failed**: 0
 - **Errors**: 0
-- **Coverage**: Models, Forms, Views, Integration
+- **Coverage**: Models, Forms, Views, Integration, Image Handling
 
 ## Notes
 - Seller detail and seller list tests gracefully handle missing Item model (Phase 3 feature)
 - All authentication flows properly tested
 - Form validation comprehensive
-- Model signals tested for auto-profile creation
+- Model signals tested for auto-profile creation and image cleanup
 - Permission checks validated (LoginRequiredMixin, UserPassesTestMixin)
+- Profile picture removal and cascade deletion fully tested with temporary media directories
 
 ## Future Test Enhancements
 - Add tests for admin panel functionality

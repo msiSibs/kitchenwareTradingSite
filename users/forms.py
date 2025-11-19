@@ -129,6 +129,15 @@ class UserProfileForm(forms.ModelForm):
         help_text='Upload a square image (recommended: 500x500px, max 5MB)'
     )
     
+    remove_picture = forms.BooleanField(
+        label='Remove profile picture',
+        required=False,
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-check-input'
+        }),
+        help_text='Check this box to remove your current profile picture'
+    )
+    
     is_seller = forms.BooleanField(
         label='I want to sell items',
         required=False,

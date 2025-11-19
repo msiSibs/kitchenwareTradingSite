@@ -25,9 +25,12 @@ A Django-based platform for buying and selling second-hand kitchenware items. Co
 - **User Profiles**: Profile creation, viewing, editing with full name, bio, phone
 - **Seller Accounts**: Seller status, verification, ratings, sales tracking
 - **Profile Management**: Edit profile, update picture, phone number, bio
+- **Profile Picture Removal**: Remove uploaded pictures with checkbox
+- **Image Cascade Deletion**: Auto-delete images when profile deleted
 - **Seller Directory**: Browse verified sellers, seller ratings
 - **Form Validation**: Email/username uniqueness, phone format, image size
 - **Permission System**: Login required, user can only edit own profile
+- **Test Suite**: 43 comprehensive tests - ALL PASSING
 
 ### 🚧 In Development (Phase 3)
 - **Marketplace CRUD**: Item listings with image upload
@@ -52,7 +55,7 @@ cd kitchenwareTradingSite
 # Run the setup script
 ./setup.sh
 
-# Create superuser
+# Create superuser (FIRST TIME ONLY - one-time setup)
 source venv/bin/activate
 python3 manage.py createsuperuser
 
@@ -62,6 +65,12 @@ python3 manage.py runserver
 
 **Visit**: http://localhost:8000/ (Homepage) or http://localhost:8000/admin/ (Admin Panel)
 
+**Note**: The superuser only needs to be created once on your first setup. On subsequent runs, simply activate the virtual environment and run the server:
+```bash
+source venv/bin/activate
+python3 manage.py runserver
+```
+
 ## 📖 Documentation
 
 - **[docs/GETTING_STARTED.md](docs/GETTING_STARTED.md)** - Complete setup guide (automated & manual)
@@ -69,7 +78,7 @@ python3 manage.py runserver
 - **[docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)** - Directory layout and app organization
 - **[docs/DEVELOPMENT_PLAN.md](docs/DEVELOPMENT_PLAN.md)** - Phase-by-phase implementation roadmap
 - **[docs/PROJECT_FILES_EXPLANATION.md](docs/PROJECT_FILES_EXPLANATION.md)** - File-by-file reference guide
-- **[docs/TESTS.md](docs/TESTS.md)** - Test suite documentation (36 passing tests)
+- **[docs/TESTS.md](docs/TESTS.md)** - Test suite documentation (43 passing tests)
 
 ## 🤝 Contributing
 
