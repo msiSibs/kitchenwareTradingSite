@@ -1,0 +1,41 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "username": "chef_anna",
+      "email": "anna@example.com",
+      "first_name": "Anna",
+      "last_name": "Johnson",
+      "password": "pbkdf2_sha256$600000$abc123xyz$hash",
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "username": "kitchen_pro",
+      "email": "pro@example.com",
+      "first_name": "Marcus",
+      "last_name": "Smith",
+      "password": "pbkdf2_sha256$600000$def456uvw$hash",
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "username": "culinary_queen",
+      "email": "queen@example.com",
+      "first_name": "Diana",
+      "last_name": "Williams",
+      "password": "pbkdf2_sha256$600000$ghi789rst$hash",
+      "is_staff": false,
+      "is_active": true
+    }
+  }
+]

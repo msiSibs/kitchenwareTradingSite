@@ -138,13 +138,17 @@ class UserProfileForm(forms.ModelForm):
         help_text='Check this box to remove your current profile picture'
     )
     
-    is_seller = forms.BooleanField(
-        label='I want to sell items',
-        required=False,
-        widget=forms.CheckboxInput(attrs={
+    is_seller = forms.ChoiceField(
+        label='Account Type',
+        required=True,
+        widget=forms.RadioSelect(attrs={
             'class': 'form-check-input'
         }),
-        help_text='Check this box to enable selling on the marketplace'
+        choices=[
+            (False, 'Buyer - I want to purchase items'),
+            (True, 'Seller - I want to sell items'),
+        ],
+        help_text='Choose whether you want to buy or sell on the marketplace'
     )
     
     class Meta:

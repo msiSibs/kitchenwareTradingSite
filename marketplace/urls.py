@@ -4,9 +4,10 @@ from . import views
 app_name = 'marketplace'
 
 urlpatterns = [
-    path('', views.item_list_view, name='list'),
-    path('create/', views.item_create_view, name='create'),
-    path('<int:pk>/', views.item_detail_view, name='detail'),
-    path('<int:pk>/edit/', views.item_edit_view, name='edit'),
-    path('<int:pk>/delete/', views.item_delete_view, name='delete'),
+    # Listing views
+    path('', views.ItemListView.as_view(), name='list'),
+    path('create/', views.ItemCreateView.as_view(), name='create'),
+    path('<int:pk>/', views.ItemDetailView.as_view(), name='detail'),
+    path('<int:pk>/edit/', views.ItemUpdateView.as_view(), name='edit'),
+    path('<int:pk>/delete/', views.ItemDeleteView.as_view(), name='delete'),
 ]

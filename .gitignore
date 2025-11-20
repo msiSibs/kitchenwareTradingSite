@@ -48,6 +48,12 @@ local_settings.py
 
 # Database
 db.sqlite3
+
+# Test Data (local development only)
+test_data/images/
+test_data/*.db
+test_data/*.sqlite3
+
 *.sqlite
 *.sqlite3
 

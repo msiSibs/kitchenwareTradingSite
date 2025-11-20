@@ -1,0 +1,137 @@
+[
+  {
+    "model": "marketplace.category",
+    "pk": 1,
+    "fields": {
+      "name": "Cookware",
+      "description": "Pots, pans, and other cooking vessels",
+      "icon": "fa-fire"
+    }
+  },
+  {
+    "model": "marketplace.category",
+    "pk": 2,
+    "fields": {
+      "name": "Bakeware",
+      "description": "Baking pans, sheets, and molds",
+      "icon": "fa-cake"
+    }
+  },
+  {
+    "model": "marketplace.category",
+    "pk": 3,
+    "fields": {
+      "name": "Utensils",
+      "description": "Knives, spatulas, spoons, and other tools",
+      "icon": "fa-utensils"
+    }
+  },
+  {
+    "model": "marketplace.category",
+    "pk": 4,
+    "fields": {
+      "name": "Appliances",
+      "description": "Small kitchen appliances",
+      "icon": "fa-blender"
+    }
+  },
+  {
+    "model": "marketplace.category",
+    "pk": 5,
+    "fields": {
+      "name": "Serveware",
+      "description": "Bowls, dishes, and serving pieces",
+      "icon": "fa-bowl"
+    }
+  },
+  {
+    "model": "marketplace.item",
+    "pk": 1,
+    "fields": {
+      "seller": 1,
+      "title": "Le Creuset Cast Iron Dutch Oven - Red",
+      "description": "Authentic Le Creuset enameled cast iron Dutch oven in classic red. 5.5 quart capacity. Perfect for braising, stews, and bread baking. Includes original lid with temperature knob.",
+      "category": 1,
+      "price": "185.00",
+      "condition": "like_new",
+      "brand": "Le Creuset",
+      "material": "Enameled Cast Iron",
+      "location": "Portland, OR",
+      "is_active": true,
+      "created_at": "2025-11-19T10:30:00Z",
+      "updated_at": "2025-11-19T10:30:00Z"
+    }
+  },
+  {
+    "model": "marketplace.item",
+    "pk": 2,
+    "fields": {
+      "seller": 2,
+      "title": "Stainless Steel All-Clad Frying Pan",
+      "description": "10-inch All-Clad stainless steel frying pan. Excellent heat distribution with All-Clad's signature aluminum core. Non-stick coating still in excellent condition.",
+      "category": 1,
+      "price": "95.00",
+      "condition": "good",
+      "brand": "All-Clad",
+      "material": "Stainless Steel",
+      "location": "Seattle, WA",
+      "is_active": true,
+      "created_at": "2025-11-19T11:15:00Z",
+      "updated_at": "2025-11-19T11:15:00Z"
+    }
+  },
+  {
+    "model": "marketplace.item",
+    "pk": 3,
+    "fields": {
+      "seller": 3,
+      "title": "KitchenAid Stand Mixer - Professional",
+      "description": "Heavy-duty KitchenAid professional stand mixer in white. Includes bowl, whip, hook, and paddle attachments. Barely used, perfect condition.",
+      "category": 4,
+      "price": "220.00",
+      "condition": "like_new",
+      "brand": "KitchenAid",
+      "material": "Metal & Plastic",
+      "location": "San Francisco, CA",
+      "is_active": true,
+      "created_at": "2025-11-19T12:00:00Z",
+      "updated_at": "2025-11-19T12:00:00Z"
+    }
+  },
+  {
+    "model": "marketplace.item",
+    "pk": 4,
+    "fields": {
+      "seller": 1,
+      "title": "Victorinox Chef's Knife Set",
+      "description": "Professional Victorinox knife set with 7-piece collection. Includes 8\" chef knife, 6\" utility knife, 3.5\" paring knife, and more. Swiss-made quality.",
+      "category": 3,
+      "price": "75.00",
+      "condition": "good",
+      "brand": "Victorinox",
+      "material": "Stainless Steel",
+      "location": "Portland, OR",
+      "is_active": true,
+      "created_at": "2025-11-19T13:30:00Z",
+      "updated_at": "2025-11-19T13:30:00Z"
+    }
+  },
+  {
+    "model": "marketplace.item",
+    "pk": 5,
+    "fields": {
+      "seller": 2,
+      "title": "Pyrex Baking Pan Set",
+      "description": "Set of 4 Pyrex glass baking pans in various sizes. Great for baking, roasting, and storage. Oven-safe to 500°F. Some light scratching from normal use.",
+      "category": 2,
+      "price": "35.00",
+      "condition": "fair",
+      "brand": "Pyrex",
+      "material": "Borosilicate Glass",
+      "location": "Seattle, WA",
+      "is_active": true,
+      "created_at": "2025-11-19T14:45:00Z",
+      "updated_at": "2025-11-19T14:45:00Z"
+    }
+  }
+]

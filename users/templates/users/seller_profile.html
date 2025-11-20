@@ -4,6 +4,23 @@
 
 {% block content %}
 <div class="container py-5">
+    <!-- Back Navigation -->
+    <div class="mb-3">
+        {% if request.GET.next %}
+            <a href="{{ request.GET.next }}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Item
+            </a>
+        {% elif request.META.HTTP_REFERER %}
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        {% else %}
+            <a href="{% url 'marketplace:list' %}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Marketplace
+            </a>
+        {% endif %}
+    </div>
+
     <div class="row">
         <div class="col-md-4">
             <div class="card">

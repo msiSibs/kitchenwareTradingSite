@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ item.title }} - Kitchenware Marketplace{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Back Navigation -->
+    <div class="mb-3">
+        <a href="{% url 'marketplace:list' %}" class="btn btn-sm btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Marketplace
+        </a>
+    </div>
+
+    <div class="row">
+        <!-- Images Section -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body p-0">
+                    <!-- Primary Image -->
+                    {% if primary_image %}
+                        <div class="mb-3" style="background-color: #f8f9fa;">
+                            <img src="{{ primary_image.image.url }}" 
+                                 alt="{{ item.title }}" 
+                                 id="mainImage"
+                                 class="img-fluid w-100" 
+                                 style="max-height: 500px; object-fit: contain;">
+                        </div>
+                    {% else %}
+                        <div class="d-flex align-items-center justify-content-center" style="height: 500px; background-color: #f8f9fa;">
+                            <i class="fas fa-image text-muted" style="font-size: 5rem;"></i>
+                        </div>
+                    {% endif %}
+
+                    <!-- Thumbnail Gallery -->
+                    {% if images %}
+                        <div class="p-3 border-top">
+                            <h6 class="mb-3">Gallery</h6>
+                            <div class="row g-2">
+                                {% for image in images %}
+                                    <div class="col-3">
+                                        <img src="{{ image.image.url }}" 
+                                             alt="Thumbnail" 
+                                             class="img-thumbnail cursor-pointer"
+                                             onclick="document.getElementById('mainImage').src='{{ image.image.url }}';"
+                                             style="height: 80px; object-fit: cover;">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Item Details -->
+        <div class="col-md-6">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'marketplace:list' %}">Marketplace</a></li>
+                    {% if item.category %}
+                        <li class="breadcrumb-item">{{ item.category.name }}</li>
+                    {% endif %}
+                    <li class="breadcrumb-item active">{{ item.title }}</li>
+                </ol>
+            </nav>
+
+            <!-- Title and Price -->
+            <h1 class="mb-2">{{ item.title }}</h1>
+            <div class="mb-4">
+                <h3 class="text-primary mb-2">${{ item.price }}</h3>
+                <div class="mb-3">
+                    <span class="badge bg-success me-2">For Sale</span>
+                    <span class="badge bg-light text-dark me-2">
+                        <i class="fas fa-cube"></i> {{ item.get_condition_display }}
+                    </span>
+                    {% if item.category %}
+                        <span class="badge bg-light text-dark">
+                            <i class="fas fa-tag"></i> {{ item.category.name }}
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+                <h5>Description</h5>
+                <p class="text-muted">{{ item.description|linebreaks }}</p>
+            </div>
+
+            <!-- Item Specs -->
+            <div class="row mb-4">
+                <div class="col-6">
+                    {% if item.brand %}
+                        <div class="mb-3">
+                            <strong>Brand:</strong><br>
+                            <span class="text-muted">{{ item.brand }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-6">
+                    {% if item.material %}
+                        <div class="mb-3">
+                            <strong>Material:</strong><br>
+                            <span class="text-muted">{{ item.material }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <strong>Location:</strong><br>
+                        <span class="text-muted"><i class="fas fa-map-marker-alt"></i> {{ item.location }}</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <strong>Posted:</strong><br>
+                        <span class="text-muted">{{ item.created_at|date:"M d, Y" }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seller Card -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h6 class="card-title mb-3">Seller Information</h6>
+                    <div class="d-flex mb-3">
+                        {% if item.seller.profile.profile_picture %}
+                            <img src="{{ item.seller.profile.profile_picture.url }}" 
+                                 alt="{{ item.seller.get_full_name }}" 
+                                 class="rounded-circle me-3" 
+                                 style="width: 60px; height: 60px; object-fit: cover;">
+                        {% else %}
+                            <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-3" 
+                                 style="width: 60px; height: 60px;">
+                                <i class="fas fa-user-alt" style="font-size: 1.5rem;"></i>
+                            </div>
+                        {% endif %}
+                        <div>
+                            <h6 class="mb-0">
+                                <a href="{% url 'users:profile' item.seller.username %}?next={% url 'marketplace:detail' item.pk %}" class="text-decoration-none">
+                                    {{ item.seller.get_full_name|default:item.seller.username }}
+                                </a>
+                            </h6>
+                            {% if item.seller.profile.is_verified_seller %}
+                                <span class="badge bg-success"><i class="fas fa-check"></i> Verified Seller</span>
+                            {% endif %}
+                            {% if item.seller.profile.average_rating %}
+                                <div class="small mt-1">
+                                    <i class="fas fa-star text-warning"></i> 
+                                    {{ item.seller.profile.average_rating }}/5.0 
+                                    ({{ item.seller.profile.total_sales }} sales)
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if item.seller.profile.bio %}
+                        <p class="text-muted small mb-3">{{ item.seller.profile.bio }}</p>
+                    {% endif %}
+                    <a href="{% url 'users:profile' item.seller.username %}?next={% url 'marketplace:detail' item.pk %}" class="btn btn-sm btn-outline-primary w-100">
+                        <i class="fas fa-user"></i> View Profile
+                    </a>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-grid gap-2">
+                {% if user.is_authenticated and user == item.seller %}
+                    <a href="{% url 'marketplace:edit' item.pk %}" class="btn btn-primary">
+                        <i class="fas fa-edit"></i> Edit Listing
+                    </a>
+                    <a href="{% url 'marketplace:delete' item.pk %}" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Remove Listing
+                    </a>
+                {% elif user.is_authenticated %}
+                    <button class="btn btn-primary" disabled>
+                        <i class="fas fa-envelope"></i> Contact Seller (Coming Soon)
+                    </button>
+                {% else %}
+                    <a href="{% url 'users:login' %}" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Login to Contact
+                    </a>
+                {% endif %}
+                <a href="{% url 'marketplace:list' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Marketplace
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cursor-pointer {
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+    .cursor-pointer:hover {
+        opacity: 1;
+    }
+</style>
+{% endblock %}
